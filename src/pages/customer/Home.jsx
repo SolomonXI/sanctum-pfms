@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Badge from '../../components/Badge';
 import { transactions } from '../../data/transactions';
 
+const Overlay = ({ onClose, children }) => (
+  <div onClick={onClose} style={{
+    position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)',
+    display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000
+  }}>
+    <div onClick={e => e.stopPropagation()} style={{
+      backgroundColor: 'var(--bg-card)', borderRadius: '16px', padding: '32px',
+      width: '480px', border: '1px solid var(--border)'
+    }}>
+      {children}
+    </div>
+  </div>
+);
+
 const Home = () => {
+  const [showMessage, setShowMessage] = useState(false);
+  const [message, setMessage] = useState('');
+  const [sent, setSent] = useState(false);
+
+  const handleSend = () => {
+    if (!message.trim()) return;
+    setSent(true);
+    setTimeout(() => {
+      setSent(false);
+      setMessage('');
+      setShowMessage(false);
+    }, 1800);
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
       {/* Balance card */}
@@ -80,13 +108,46 @@ const Home = () => {
             <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
               Next meeting: <span style={{ color: 'var(--teal)' }}>18 May 2026</span>
             </div>
-            <button style={{ width: '100%', padding: '12px', borderRadius: '24px', backgroundColor: 'var(--teal)', color: 'var(--bg-primary)', fontWeight: '600' }}>
+            <button
+              onClick={() => setShowMessage(true)}
+              style={{ width: '100%', padding: '12px', borderRadius: '24px', backgroundColor: 'var(--teal)', color: 'var(--bg-primary)', fontWeight: '600', cursor: 'pointer' }}
+            >
               Message Adviser
             </button>
             <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Risk Profile: Moderate</div>
           </div>
         </div>
       </div>
+
+      {/* Message Modal */}
+      {showMessage && (
+        <Overlay onClose={() => { setShowMessage(false); setMessage(''); setSent(false); }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '50%', backgroundColor: 'var(--blue)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '700', flexShrink: 0 }}>DC</div>
+            <div>
+              <div style={{ fontWeight: '700', fontSize: '16px' }}>David Chen</div>
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Senior Wealth Adviser · Online</div>
+            </div>
+          </div>
+          <textarea
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            placeholder="Type your message to David..."
+            style={{ width: '100%', height: '140px', padding: '16px', borderRadius: '8px', backgroundColor: 'var(--bg-card-lt)', border: '1px solid var(--border)', color: 'white', resize: 'none', marginBottom: '16px', fontSize: '14px' }}
+          />
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+            <button onClick={() => setShowMessage(false)} style={{ padding: '10px 20px', borderRadius: '8px', border: '1px solid var(--border)', color: 'var(--text-secondary)', cursor: 'pointer', background: 'transparent' }}>
+              Cancel
+            </button>
+            <button
+              onClick={handleSend}
+              style={{ padding: '10px 24px', borderRadius: '8px', backgroundColor: sent ? 'var(--green)' : 'var(--teal)', color: 'var(--bg-primary)', fontWeight: '600', cursor: 'pointer', transition: 'background-color 0.2s', minWidth: '130px' }}
+            >
+              {sent ? '✓ Message Sent!' : 'Send Message'}
+            </button>
+          </div>
+        </Overlay>
+      )}
     </div>
   );
 };
