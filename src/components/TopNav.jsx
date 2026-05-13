@@ -1,21 +1,18 @@
 import React from 'react';
-import { Menu, LogOut } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const TopNav = ({ pageTitle, toggleSidebar }) => {
-  const { user, logout } = useAuth();
-  
+  const { user } = useAuth();
+
   let avatarColor = 'var(--teal)';
   if (user?.role === 'fa') avatarColor = 'var(--blue)';
   if (user?.role === 'tm') avatarColor = 'var(--gold)';
 
   return (
     <header style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: '16px 32px',
-      borderBottom: '1px solid var(--border)',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      padding: '16px 32px', borderBottom: '1px solid var(--border)',
       backgroundColor: 'var(--bg-primary)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
@@ -27,30 +24,14 @@ const TopNav = ({ pageTitle, toggleSidebar }) => {
           SANCTUM
         </div>
         {user && (
-          <>
-            <div style={{
-              width: '40px', height: '40px', borderRadius: '50%',
-              backgroundColor: avatarColor,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'var(--bg-primary)', fontWeight: '700', fontSize: '14px'
-            }}>
-              {user.initials}
-            </div>
-            <button
-              onClick={logout}
-              style={{
-                display: 'flex', alignItems: 'center', gap: '8px',
-                backgroundColor: 'color-mix(in srgb, var(--red) 15%, transparent)',
-                color: 'var(--red)',
-                border: '1px solid color-mix(in srgb, var(--red) 40%, transparent)',
-                padding: '8px 16px', borderRadius: '8px',
-                fontWeight: '600', fontSize: '13px', cursor: 'pointer'
-              }}
-            >
-              <LogOut size={15} />
-              Logout
-            </button>
-          </>
+          <div style={{
+            width: '40px', height: '40px', borderRadius: '50%',
+            backgroundColor: avatarColor,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: 'var(--bg-primary)', fontWeight: '700', fontSize: '14px'
+          }}>
+            {user.initials}
+          </div>
         )}
       </div>
     </header>

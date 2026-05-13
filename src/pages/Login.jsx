@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
   const [tab, setTab] = useState('login');
   const [role, setRole] = useState('customer');
 
@@ -110,9 +112,12 @@ const Login = () => {
           </form>
         </div>
         {tab === 'login' && (
-          <div style={{ marginTop: '24px', color: 'var(--teal)', fontSize: '12px', cursor: 'pointer' }}>
+          <button
+            onClick={() => navigate('/forgot-password')}
+            style={{ marginTop: '16px', color: 'var(--teal)', fontSize: '12px', cursor: 'pointer', background: 'transparent', border: 'none', textDecoration: 'underline' }}
+          >
             Forgot your password?
-          </div>
+          </button>
         )}
       </div>
     </div>
