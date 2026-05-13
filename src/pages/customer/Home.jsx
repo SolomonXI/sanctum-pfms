@@ -83,9 +83,9 @@ const Home = () => {
       </motion.div>
 
       {/* Three columns */}
-      <div style={{ display: 'flex', gap: '24px', flex: 1 }}>
+      <div className="flex-stack" style={{ flex: 1 }}>
         {/* Recent Transactions */}
-        <motion.div variants={slideInLeft} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <motion.div variants={slideInLeft} className="dashboard-col" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '600' }}>Recent Transactions</h3>
           <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {transactions.slice(0, 5).map((tx, idx) => (
@@ -108,7 +108,7 @@ const Home = () => {
         </motion.div>
 
         {/* All Accounts */}
-        <motion.div variants={fadeUp} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <motion.div variants={fadeUp} className="dashboard-col" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '600' }}>All Accounts</h3>
           <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             {[
@@ -136,7 +136,7 @@ const Home = () => {
         </motion.div>
 
         {/* Financial Advisor */}
-        <motion.div variants={slideInRight} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <motion.div variants={slideInRight} className="dashboard-col" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h3 style={{ fontSize: '16px', fontWeight: '600' }}>Financial Adviser</h3>
           <motion.div 
             whileHover={{ borderColor: 'var(--teal)' }}

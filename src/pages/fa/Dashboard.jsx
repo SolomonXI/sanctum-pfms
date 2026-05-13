@@ -7,9 +7,9 @@ import { news } from '../../data/news';
 
 const Dashboard = () => {
   return (
-    <motion.div variants={staggerContainer} initial="hidden" animate="visible" style={{ display: 'flex', gap: '24px', height: '100%' }}>
+    <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="flex-stack" style={{ height: '100%' }}>
       {/* Alerts */}
-      <motion.div variants={slideInLeft} style={{ width: '310px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <motion.div variants={slideInLeft} className="dashboard-col" style={{ width: '310px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <h2 style={{ fontSize: '16px', fontWeight: '600' }}>Alerts</h2>
         <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {[
@@ -27,7 +27,7 @@ const Dashboard = () => {
       </motion.div>
 
       {/* Market News */}
-      <motion.div variants={fadeUp} style={{ width: '310px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <motion.div variants={fadeUp} className="dashboard-col" style={{ width: '310px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <h2 style={{ fontSize: '16px', fontWeight: '600' }}>Market News</h2>
         <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {news.map(item => (
@@ -41,7 +41,7 @@ const Dashboard = () => {
       </motion.div>
 
       {/* Today's Schedule */}
-      <motion.div variants={fadeUp} style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <motion.div variants={fadeUp} className="dashboard-col" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <h2 style={{ fontSize: '16px', fontWeight: '600' }}>Today's Schedule <span style={{ color: 'var(--teal)', fontSize: '12px', marginLeft: '8px', fontWeight: '500' }}>13 May</span></h2>
         <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {[
@@ -60,7 +60,7 @@ const Dashboard = () => {
       </motion.div>
 
       {/* Risk Overview */}
-      <motion.div variants={slideInRight} style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <motion.div variants={slideInRight} className="dashboard-col" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <h2 style={{ fontSize: '16px', fontWeight: '600' }}>Risk Overview</h2>
         <div style={{ flex: 1, backgroundColor: 'var(--bg-card)', borderRadius: '12px', padding: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <motion.div variants={scaleIn} style={{ width: '160px', height: '160px', borderRadius: '50%', border: '8px solid var(--teal)', backgroundColor: 'var(--bg-card-lt)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '32px' }}>

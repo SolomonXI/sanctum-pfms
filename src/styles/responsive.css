@@ -1,0 +1,85 @@
+/* Base responsive utility classes */
+
+/* Flex stacking for mobile */
+.flex-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .flex-stack {
+    flex-direction: row;
+  }
+}
+
+/* Hide elements on mobile */
+@media (max-width: 767px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+  }
+  
+  .responsive-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 1001;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .responsive-sidebar.closed {
+    transform: translateX(-100%);
+  }
+  
+  /* Dashboard specific mobile styles to ensure columns stretch */
+  .dashboard-col {
+    width: 100% !important;
+  }
+  
+  /* Make settings layout stack */
+  .settings-layout {
+    flex-direction: column !important;
+  }
+  
+  .settings-nav {
+    width: 100% !important;
+    flex-direction: row !important;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  
+  .settings-nav button {
+    white-space: nowrap;
+    border-left: none !important;
+    border-bottom: 4px solid transparent;
+  }
+  
+  .settings-nav button.active {
+    border-bottom: 4px solid var(--teal) !important;
+  }
+}
+
+/* Responsive Grid for components like TM Dashboard pie chart grid */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

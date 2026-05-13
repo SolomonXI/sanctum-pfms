@@ -5,23 +5,43 @@ import Sidebar from './Sidebar';
 import TopNav from './TopNav';
 import Footer from './Footer';
 import { fadeUp } from '../utils/animations';
+import { useWindowSize } from '../utils/useWindowSize';
 
 const Layout = ({ pageTitle }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
+
+  // On desktop, default open. On mobile, default closed.
+  React.useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
+
+  // Close sidebar on mobile when location changes
+  React.useEffect(() => {
+    if (isMobile) setSidebarOpen(false);
+  }, [location.pathname, isMobile]);
 
   return (
     <div style={{ display: 'flex', height: '100vh', width: '100vw', overflow: 'hidden' }}>
+      
+      {/* Mobile Overlay */}
+      {isMobile && sidebarOpen && (
+        <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* Animated sidebar */}
       <AnimatePresence initial={false}>
         {sidebarOpen && (
           <motion.div
             key="sidebar"
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 260, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
+            initial={isMobile ? { x: -260 } : { width: 0, opacity: 0 }}
+            animate={isMobile ? { x: 0 } : { width: 260, opacity: 1 }}
+            exit={isMobile ? { x: -260 } : { width: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-            style={{ overflow: 'hidden', flexShrink: 0, height: '100%' }}
+            className={isMobile ? "responsive-sidebar" : ""}
+            style={!isMobile ? { overflow: 'hidden', flexShrink: 0, height: '100%' } : {}}
           >
             <Sidebar />
           </motion.div>

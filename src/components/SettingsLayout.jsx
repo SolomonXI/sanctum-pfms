@@ -131,13 +131,14 @@ const SettingsLayout = ({ tabs }) => {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '32px', height: '100%' }}>
+    <div className="settings-layout" style={{ display: 'flex', gap: '32px', height: '100%' }}>
       {/* Left nav */}
-      <motion.div variants={slideInLeft} initial="hidden" animate="visible" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <motion.div variants={slideInLeft} initial="hidden" animate="visible" className="settings-nav" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {tabs.map(tab => (
           <button
             key={tab.name}
             onClick={() => setActiveTabName(tab.name)}
+            className={activeTabName === tab.name ? 'active' : ''}
             style={{
               padding: '12px 16px', borderRadius: '8px',
               backgroundColor: activeTabName === tab.name ? 'color-mix(in srgb, var(--teal) 15%, transparent)' : 'transparent',

@@ -23,7 +23,7 @@ const TopNav = ({ pageTitle, toggleSidebar }) => {
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img src={logo} alt="Sanctum" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-          <div style={{ fontSize: '18px', fontWeight: '700', letterSpacing: '2px', color: 'var(--teal)' }}>SANCTUM</div>
+          <div className="hide-mobile" style={{ fontSize: '18px', fontWeight: '700', letterSpacing: '2px', color: 'var(--teal)' }}>SANCTUM</div>
         </div>
         {user && (
           <div style={{

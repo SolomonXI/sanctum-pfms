@@ -13,9 +13,9 @@ const OverviewDashboard = () => {
   ];
 
   return (
-    <motion.div variants={staggerContainer} initial="hidden" animate="visible" style={{ display: 'flex', gap: '24px', height: '100%' }}>
+    <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="flex-stack" style={{ height: '100%' }}>
       {/* Left: Chart */}
-      <motion.div variants={slideInLeft} style={{ width: '380px', backgroundColor: 'var(--bg-card)', borderRadius: '12px', padding: '32px', display: 'flex', flexDirection: 'column' }}>
+      <motion.div variants={slideInLeft} className="dashboard-col" style={{ width: '380px', backgroundColor: 'var(--bg-card)', borderRadius: '12px', padding: '32px', display: 'flex', flexDirection: 'column' }}>
         <h2 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '32px' }}>Total Reviews</h2>
         <motion.div variants={scaleIn} style={{ flex: 1, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Chart type="pie" data={pieData} />
