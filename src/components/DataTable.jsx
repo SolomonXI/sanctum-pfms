@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { staggerContainer, tableRow } from '../utils/animations';
 
 const DataTable = ({ columns, rows, onRowClick }) => {
   return (
@@ -13,12 +15,18 @@ const DataTable = ({ columns, rows, onRowClick }) => {
             ))}
           </tr>
         </thead>
-        <tbody>
+        <motion.tbody
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
           {rows.map((row, rowIdx) => (
-            <tr 
-              key={rowIdx} 
+            <motion.tr
+              key={rowIdx}
+              variants={tableRow}
               onClick={() => onRowClick && onRowClick(row.raw || row)}
-              style={{ 
+              whileHover={{ backgroundColor: 'color-mix(in srgb, var(--teal) 6%, transparent)', transition: { duration: 0.15 } }}
+              style={{
                 backgroundColor: rowIdx % 2 === 0 ? 'var(--bg-primary)' : 'var(--bg-card)',
                 borderBottom: '1px solid var(--border)',
                 cursor: onRowClick ? 'pointer' : 'default'
@@ -29,9 +37,9 @@ const DataTable = ({ columns, rows, onRowClick }) => {
                   {cell}
                 </td>
               ))}
-            </tr>
+            </motion.tr>
           ))}
-        </tbody>
+        </motion.tbody>
       </table>
     </div>
   );

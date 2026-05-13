@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { staggerContainer, staggerItem, fadeUp, slideInLeft } from '../utils/animations';
 
 // A single editable field row
 const FieldRow = ({ field }) => {
@@ -131,7 +133,7 @@ const SettingsLayout = ({ tabs }) => {
   return (
     <div style={{ display: 'flex', gap: '32px', height: '100%' }}>
       {/* Left nav */}
-      <div style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <motion.div variants={slideInLeft} initial="hidden" animate="visible" style={{ width: '280px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {tabs.map(tab => (
           <button
             key={tab.name}
@@ -147,10 +149,10 @@ const SettingsLayout = ({ tabs }) => {
             {tab.name}
           </button>
         ))}
-      </div>
+      </motion.div>
 
       {/* Right form */}
-      <div style={{ flex: 1, backgroundColor: 'var(--bg-card)', borderRadius: '12px', padding: '32px', overflowY: 'auto' }}>
+      <motion.div variants={fadeUp} initial="hidden" animate="visible" style={{ flex: 1, backgroundColor: 'var(--bg-card)', borderRadius: '12px', padding: '32px', overflowY: 'auto' }}>
         <h2 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px' }}>{activeTab.name}</h2>
         <div style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '24px' }}>
           {activeTab.description || 'Update your settings and preferences here.'}
@@ -158,25 +160,38 @@ const SettingsLayout = ({ tabs }) => {
         <div style={{ height: '1px', backgroundColor: 'var(--border)', marginBottom: '32px' }}></div>
 
         {/* Fields — each has its own independent edit state */}
-        <div key={activeTabName} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          {activeTab.fields.map((field, idx) => (
-            <FieldRow key={`${activeTabName}-${idx}`} field={field} />
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeTabName} 
+            variants={staggerContainer} 
+            initial="hidden" 
+            animate="visible" 
+            exit="hidden"
+            style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}
+          >
+            {activeTab.fields.map((field, idx) => (
+              <motion.div key={`${activeTabName}-${idx}`} variants={staggerItem}>
+                <FieldRow field={field} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         <div style={{ marginTop: '40px', display: 'flex', justifyContent: 'flex-end' }}>
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleSaveAll}
             style={{
               backgroundColor: saveFlash ? 'var(--green)' : 'var(--teal)',
               color: 'var(--bg-primary)', padding: '12px 24px', borderRadius: '24px',
-              fontWeight: '600', width: '180px', cursor: 'pointer', transition: 'background-color 0.2s'
+              fontWeight: '600', width: '180px', cursor: 'pointer', transition: 'background-color 0.2s', border: 'none'
             }}
           >
             {saveFlash ? '✓ Changes Saved!' : 'Save Changes'}
-          </button>
+          </motion.button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

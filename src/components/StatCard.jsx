@@ -1,9 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { staggerItem } from '../utils/animations';
 
 const StatCard = ({ label, value, delta, color = 'var(--teal)', icon }) => {
   return (
     <motion.div 
+      variants={staggerItem}
       whileHover={{ y: -4, scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
       style={{

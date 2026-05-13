@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { fadeUp } from '../../utils/animations';
 import DataTable from '../../components/DataTable';
 import Badge from '../../components/Badge';
 import { transactions } from '../../data/transactions';
@@ -69,7 +71,9 @@ const TransactionHistory = () => {
           <h2 style={{ fontSize: '16px', fontWeight: '600' }}>All Transactions</h2>
           <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{filtered.length} of {transactions.length}</span>
         </div>
-        <button
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => setShowFilter(v => !v)}
           style={{
             backgroundColor: showFilter ? 'var(--teal)' : 'var(--bg-card-lt)',
@@ -77,7 +81,7 @@ const TransactionHistory = () => {
             padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600',
             color: showFilter ? 'var(--bg-primary)' : 'var(--text-primary)',
             cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px',
-            transition: 'all 0.15s'
+            transition: 'background-color 0.15s, color 0.15s'
           }}
         >
           {showFilter ? '▲ Hide Filters' : '▼ Filter & Search'}
@@ -86,81 +90,94 @@ const TransactionHistory = () => {
               {activeFilterCount}
             </span>
           )}
-        </button>
+        </motion.button>
       </div>
 
       {/* Filter Panel */}
-      {showFilter && (
-        <div style={{ backgroundColor: 'var(--bg-card-lt)', borderRadius: '10px', padding: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '16px', border: '1px solid var(--border)' }}>
-          {/* Search */}
-          <div>
-            <label style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Search</label>
-            <input
-              type="text"
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder="Search by description or category..."
-              style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', color: 'white', fontSize: '13px' }}
-            />
-          </div>
+      <AnimatePresence>
+        {showFilter && (
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            style={{ backgroundColor: 'var(--bg-card-lt)', borderRadius: '10px', padding: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '16px', border: '1px solid var(--border)' }}
+          >
+            {/* Search */}
+            <div>
+              <label style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Search</label>
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Search by description or category..."
+                style={{ width: '100%', padding: '10px 14px', borderRadius: '8px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)', color: 'white', fontSize: '13px' }}
+              />
+            </div>
 
-          <div style={{ display: 'flex', gap: '24px' }}>
-            {/* Category Filter */}
-            <div style={{ flex: 1 }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Category</label>
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                {allCategories.map(cat => (
-                  <button
-                    key={cat}
-                    onClick={() => setCategoryFilter(cat)}
-                    style={{
-                      padding: '5px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '600',
-                      cursor: 'pointer', transition: 'all 0.15s',
-                      backgroundColor: categoryFilter === cat ? 'var(--teal)' : 'var(--bg-card)',
-                      color: categoryFilter === cat ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                      border: categoryFilter === cat ? 'none' : '1px solid var(--border)'
-                    }}
-                  >
-                    {cat}
-                  </button>
-                ))}
+            <div style={{ display: 'flex', gap: '24px' }}>
+              {/* Category Filter */}
+              <div style={{ flex: 1 }}>
+                <label style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Category</label>
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {allCategories.map(cat => (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      key={cat}
+                      onClick={() => setCategoryFilter(cat)}
+                      style={{
+                        padding: '5px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: '600',
+                        cursor: 'pointer', transition: 'background-color 0.15s, color 0.15s',
+                        backgroundColor: categoryFilter === cat ? 'var(--teal)' : 'var(--bg-card)',
+                        color: categoryFilter === cat ? 'var(--bg-primary)' : 'var(--text-secondary)',
+                        border: categoryFilter === cat ? 'none' : '1px solid var(--border)'
+                      }}
+                    >
+                      {cat}
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sort */}
+              <div style={{ minWidth: '200px' }}>
+                <label style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Sort by Amount</label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {[['none', 'Default (date)'], ['high-low', 'Highest to Lowest'], ['low-high', 'Lowest to Highest']].map(([val, label]) => (
+                    <motion.button
+                      whileHover={{ scale: 1.02, x: 4 }}
+                      whileTap={{ scale: 0.98 }}
+                      key={val}
+                      onClick={() => setSortOrder(val)}
+                      style={{
+                        padding: '8px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '600',
+                        cursor: 'pointer', textAlign: 'left', transition: 'background-color 0.15s, color 0.15s',
+                        backgroundColor: sortOrder === val ? 'color-mix(in srgb, var(--teal) 15%, transparent)' : 'transparent',
+                        color: sortOrder === val ? 'var(--teal)' : 'var(--text-secondary)',
+                        border: sortOrder === val ? '1px solid var(--teal)' : '1px solid transparent'
+                      }}
+                    >
+                      {label}
+                    </motion.button>
+                  ))}
+                </div>
               </div>
             </div>
 
-            {/* Sort */}
-            <div style={{ minWidth: '200px' }}>
-              <label style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'block', marginBottom: '8px' }}>Sort by Amount</label>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                {[['none', 'Default (date)'], ['high-low', 'Highest to Lowest'], ['low-high', 'Lowest to Highest']].map(([val, label]) => (
-                  <button
-                    key={val}
-                    onClick={() => setSortOrder(val)}
-                    style={{
-                      padding: '8px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: '600',
-                      cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s',
-                      backgroundColor: sortOrder === val ? 'color-mix(in srgb, var(--teal) 15%, transparent)' : 'transparent',
-                      color: sortOrder === val ? 'var(--teal)' : 'var(--text-secondary)',
-                      border: sortOrder === val ? '1px solid var(--teal)' : '1px solid transparent'
-                    }}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Clear */}
-          {activeFilterCount > 0 && (
-            <button
-              onClick={() => { setSearch(''); setCategoryFilter('All'); setSortOrder('none'); }}
-              style={{ alignSelf: 'flex-start', color: 'var(--red)', fontSize: '13px', fontWeight: '600', cursor: 'pointer', background: 'transparent', border: 'none' }}
-            >
-              × Clear All Filters
-            </button>
-          )}
-        </div>
-      )}
+            {/* Clear */}
+            {activeFilterCount > 0 && (
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                onClick={() => { setSearch(''); setCategoryFilter('All'); setSortOrder('none'); }}
+                style={{ alignSelf: 'flex-start', color: 'var(--red)', fontSize: '13px', fontWeight: '600', cursor: 'pointer', background: 'transparent', border: 'none' }}
+              >
+                × Clear All Filters
+              </motion.button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {rows.length > 0
         ? <DataTable columns={columns} rows={rows} />
