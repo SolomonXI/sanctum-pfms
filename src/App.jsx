@@ -15,6 +15,7 @@ import FADashboard from './pages/fa/Dashboard';
 import Scheduling from './pages/fa/Scheduling';
 import ClientInvestment from './pages/fa/ClientInvestment';
 import ReportBuilder from './pages/fa/ReportBuilder';
+import MarketAnalysis from './pages/fa/MarketAnalysis';
 
 // TM
 import OverviewDashboard from './pages/tm/OverviewDashboard';
@@ -57,6 +58,9 @@ function App() {
         </Route>
         <Route element={<Layout pageTitle="Report Builder" />}>
           <Route path="/fa/reports" element={<ReportBuilder />} />
+        </Route>
+        <Route element={<Layout pageTitle="Market Analysis" />}>
+          <Route path="/fa/market-analysis" element={<MarketAnalysis />} />
         </Route>
       </Route>
 

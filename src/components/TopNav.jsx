@@ -1,9 +1,9 @@
 import React from 'react';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const TopNav = ({ pageTitle, toggleSidebar }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   
   let avatarColor = 'var(--teal)';
   if (user?.role === 'fa') avatarColor = 'var(--blue)';
@@ -22,30 +22,35 @@ const TopNav = ({ pageTitle, toggleSidebar }) => {
         <Menu size={24} color="var(--text-secondary)" style={{ cursor: 'pointer' }} onClick={toggleSidebar} />
         <h1 style={{ fontSize: '18px', fontWeight: '600', color: 'var(--text-primary)' }}>{pageTitle}</h1>
       </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-        <div style={{
-          fontSize: '20px',
-          fontWeight: '700',
-          letterSpacing: '2px',
-          color: 'var(--teal)'
-        }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div style={{ fontSize: '20px', fontWeight: '700', letterSpacing: '2px', color: 'var(--teal)' }}>
           SANCTUM
         </div>
         {user && (
-          <div style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            backgroundColor: avatarColor,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'var(--bg-primary)',
-            fontWeight: '700',
-            fontSize: '14px'
-          }}>
-            {user.initials}
-          </div>
+          <>
+            <div style={{
+              width: '40px', height: '40px', borderRadius: '50%',
+              backgroundColor: avatarColor,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              color: 'var(--bg-primary)', fontWeight: '700', fontSize: '14px'
+            }}>
+              {user.initials}
+            </div>
+            <button
+              onClick={logout}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
+                backgroundColor: 'color-mix(in srgb, var(--red) 15%, transparent)',
+                color: 'var(--red)',
+                border: '1px solid color-mix(in srgb, var(--red) 40%, transparent)',
+                padding: '8px 16px', borderRadius: '8px',
+                fontWeight: '600', fontSize: '13px', cursor: 'pointer'
+              }}
+            >
+              <LogOut size={15} />
+              Logout
+            </button>
+          </>
         )}
       </div>
     </header>
