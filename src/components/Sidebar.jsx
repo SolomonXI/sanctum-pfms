@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ChevronDown, ChevronRight, LogOut } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Sidebar = () => {
   const { role, logout } = useAuth();
@@ -61,6 +62,12 @@ const Sidebar = () => {
       flexDirection: 'column',
       borderRight: '1px solid var(--border)'
     }}>
+      {/* Logo header */}
+      <div style={{ padding: '24px 24px 16px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <img src={logo} alt="Sanctum" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
+        <span style={{ fontSize: '16px', fontWeight: '700', letterSpacing: '2px', color: 'var(--teal)' }}>SANCTUM</span>
+      </div>
+
       {/* Nav items */}
       <div style={{ padding: '32px 24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto' }}>
         {items.map(item => {

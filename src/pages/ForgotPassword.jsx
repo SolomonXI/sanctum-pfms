@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const ForgotPassword = () => {
         width: '620px', backgroundColor: 'var(--sidebar)', borderRight: '1px solid var(--gold)',
         padding: '64px', display: 'flex', flexDirection: 'column', justifyContent: 'center'
       }}>
-        <div style={{ width: '48px', height: '48px', border: '2px solid var(--teal)', borderRadius: '50%', marginBottom: '24px' }}></div>
+        <img src={logo} alt="Sanctum Logo" style={{ width: '64px', height: '64px', objectFit: 'contain', marginBottom: '20px' }} />
         <h1 style={{ fontSize: '32px', fontWeight: '700', color: 'var(--teal)', letterSpacing: '2px', marginBottom: '24px' }}>SANCTUM</h1>
         <div style={{ height: '1px', backgroundColor: 'var(--gold)', marginBottom: '24px', width: '60px' }}></div>
         <p style={{ color: 'var(--text-secondary)', fontSize: '13px', marginBottom: '40px' }}>

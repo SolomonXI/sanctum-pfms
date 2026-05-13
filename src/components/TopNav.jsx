@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/logo.png';
 
 const TopNav = ({ pageTitle, toggleSidebar }) => {
   const { user } = useAuth();
@@ -20,8 +21,9 @@ const TopNav = ({ pageTitle, toggleSidebar }) => {
         <h1 style={{ fontSize: '18px', fontWeight: '600', color: 'var(--text-primary)' }}>{pageTitle}</h1>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <div style={{ fontSize: '20px', fontWeight: '700', letterSpacing: '2px', color: 'var(--teal)' }}>
-          SANCTUM
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <img src={logo} alt="Sanctum" style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+          <div style={{ fontSize: '18px', fontWeight: '700', letterSpacing: '2px', color: 'var(--teal)' }}>SANCTUM</div>
         </div>
         {user && (
           <div style={{
