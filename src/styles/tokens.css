@@ -1,0 +1,27 @@
+:root {
+  /* Backgrounds */
+  --bg-primary:     #0F0B14;
+  --bg-card:        #1A1022;
+  --bg-card-lt:     #241530;
+  --sidebar:        #321E37;
+
+  /* Brand */
+  --teal:           #07CFB5;
+  --gold:           #C9982A;
+
+  /* Text */
+  --text-primary:   #F6EFEA;
+  --text-secondary: #C1B5AD;
+  --text-muted:     #7B6E78;
+
+  /* Borders */
+  --border:         #3D2A47;
+
+  /* Semantic */
+  --green:          #52AE32;
+  --red:            #DE4444;
+  --blue:           #3192D0;
+  --magenta:        #D74F9D;
+  --orange:         #F07E26;
+  --yellow:         #FFCD1C;
+}
