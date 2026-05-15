@@ -12,6 +12,7 @@ import TransactionHistory from './pages/customer/TransactionHistory';
 import Statistics from './pages/customer/Statistics';
 import CustomerSettings from './pages/customer/Settings';
 import ReceiptScanner from './pages/customer/ReceiptScanner';
+import StatementsDocuments from './pages/customer/StatementsDocuments';
 
 // FA
 import FADashboard from './pages/fa/Dashboard';
@@ -50,6 +51,9 @@ function App() {
         </Route>
         <Route element={<Layout pageTitle="Settings" />}>
           <Route path="/customer/settings" element={<CustomerSettings />} />
+        </Route>
+        <Route element={<Layout pageTitle="Documents & Statements" />}>
+          <Route path="/customer/documents" element={<StatementsDocuments />} />
         </Route>
       </Route>
 
