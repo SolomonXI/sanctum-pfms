@@ -21,6 +21,7 @@ const Sidebar = () => {
       { path: '/customer/home', label: 'Dashboard' },
       { path: '/customer/transactions', label: 'Transaction history' },
       { path: '/customer/statistics', label: 'Statistics' },
+      { path: '/customer/receipt-scanner', label: 'Receipt Scanner' },
       {
         path: '#',
         label: 'Account & Preferences',

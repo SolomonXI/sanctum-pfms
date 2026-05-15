@@ -10,6 +10,7 @@ import CustomerHome from './pages/customer/Home';
 import TransactionHistory from './pages/customer/TransactionHistory';
 import Statistics from './pages/customer/Statistics';
 import CustomerSettings from './pages/customer/Settings';
+import ReceiptScanner from './pages/customer/ReceiptScanner';
 
 // FA
 import FADashboard from './pages/fa/Dashboard';
@@ -41,6 +42,9 @@ function App() {
         </Route>
         <Route element={<Layout pageTitle="Statistics" />}>
           <Route path="/customer/statistics" element={<Statistics />} />
+        </Route>
+        <Route element={<Layout pageTitle="Receipt Scanner" />}>
+          <Route path="/customer/receipt-scanner" element={<ReceiptScanner />} />
         </Route>
         <Route element={<Layout pageTitle="Settings" />}>
           <Route path="/customer/settings" element={<CustomerSettings />} />
